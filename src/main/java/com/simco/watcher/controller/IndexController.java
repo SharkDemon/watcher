@@ -54,12 +54,14 @@ public class IndexController {
 
         String homesCardImagePath = imageService.getRandomHomeCardImage();
         String vehiclesCardImagePath = imageService.getRandomVehicleCardImage();
+        String observeCardImagePath = imageService.getRandomObserveCardImage();
 
-        logger.info("showIndex invoked - returning homes=[{}], vehicles=[{}], homesImage=[{}], vehiclesImage=[{}]",
+        logger.info("showIndex invoked - returning homes=[{}], vehicles=[{}], homesImage=[{}], vehiclesImage=[{}], observeImage=[{}]",
                 homes.size(),
                 vehicles.size(),
                 homesCardImagePath,
-                vehiclesCardImagePath
+                vehiclesCardImagePath,
+                observeCardImagePath
                 );
 
         // add session variables
@@ -68,6 +70,7 @@ public class IndexController {
         // add data necessary to render view
         model.addAttribute("homesCardImagePath", homesCardImagePath);
         model.addAttribute("vehiclesCardImagePath", vehiclesCardImagePath);
+        model.addAttribute("observeCardImagePath", observeCardImagePath);
         return "index";
     }
 
