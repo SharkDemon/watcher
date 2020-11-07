@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Neighborhood Watcher</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="/css/style.css" rel="stylesheet">
+</head>
+<body>
+    <main role="main" class="container">
+        <div class="jumbotron text-white bg-dark">
+            <h1>Neighborhood Watcher</h1>
+            <p class="lead">Welcome to your Neighborhood Watcher - this application tracks details about the homes and vehicles in your neighborhood.</p>
+        </div>
+
+        <div class="d-flex justify-content-around">
+
+	        <div class="card bg-light" style="width: 300px;">
+	            <img class="card-img-top" th:src="@{${homesCardImagePath}}" alt="Browse homes">
+	            <div class="card-body">
+	                <h5 class="card-title">Browse Homes</h5>
+	                <p class="card-text">Examine details about the homes in your neighborhood.</p>
+	                <a href="#" class="btn btn-primary">Browse</a>
+	            </div>
+	        </div>
+	
+	        <div class="card bg-light" style="width: 18rem;">
+	            <img class="card-img-top" src="..." alt="Card image cap">
+	            <div class="card-body">
+	                <h5 class="card-title">Browse Vehicles</h5>
+	                <p class="card-text">See which vehicles have been spotted in your neighborhood.</p>
+	                <a href="#" class="btn btn-primary">Browse</a>
+	            </div>
+	        </div>
+	        
+	        <div class="card bg-light" style="width: 18rem;">
+	            <img class="card-img-top" src="..." alt="todo image cap">
+	            <div class="card-body">
+	                <h5 class="card-title">Add Observation</h5>
+	                <p class="card-text">Out for a walk?  Submit information about what you've seen.</p>
+	                <a href="#" class="btn btn-primary">Add</a>
+	            </div>
+	        </div>
+
+        </div><!-- end div.justify-content-between -->
+
+
+    </main>
+    <footer class="footer mt-auto py-3">
+        <div class="container">
+            <span class="text-muted">Neighborhood Watcher ©2020 by Rory Dickinson.</span>
+        </div>
+    </footer>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>
