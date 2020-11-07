@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<div th:replace="fragments/head :: head(title='Neighborhood Watcher - Vehicles')"></div>
+<body>
+    <main role="main" class="container">
+        <div class="jumbotron text-white bg-dark">
+            <h1>Neighborhood Watcher - Vehicles</h1>
+            <p class="lead">Browse the listing of vehicles in your neighborhood.</p>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Vehicles List</h5>
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">License Plate Information</th>
+                                <th scope="col">Color</th>
+                                <th scope="col">Make/Model</th>
+                                <th scope="col">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="v : ${vehicles}">
+                                <td th:text="${v.plateState + ' ' + v.plateNumber}">License Plate State and Number</td>
+                                <td th:text="${v.color}">Color</td>
+                                <td th:text="${v.make + ' ' + v.model}">Make and Model</td>
+                                <td>Edit | Remove</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </main>
+    <div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>
