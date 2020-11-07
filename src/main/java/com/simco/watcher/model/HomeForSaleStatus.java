@@ -2,7 +2,17 @@ package com.simco.watcher.model;
 
 public enum HomeForSaleStatus {
 
-    NOT_FOR_SALE,
-    FOR_SALE
+    NO_SIGN("No Sign"),
+    FOR_SALE_SIGN("For Sale Sign");
+
+    private final String displayName;
+
+    HomeForSaleStatus(String displayName) {
+        this.displayName = displayName;
+    }
+
+    public String getDisplayName() {
+        return displayName;
+    }
 
 }

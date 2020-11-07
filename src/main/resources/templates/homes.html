@@ -35,7 +35,10 @@
                                 <td th:text="${h.cityStateZip}">City State Zip</td>
                                 <td>TODO</td>
                                 <td>TODO</td>
-                                <td>Edit | Remove</td>
+                                <td><a href="#">Edit</a> 
+                                        | <a th:href="@{'/homes/history/' + ${h.id}}" href="#">History</a> 
+                                        | <a href="#">Remove</a>
+                                </td>
                             </tr>
                         </tbody>
                     </table>

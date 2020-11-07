@@ -1,5 +1,6 @@
 package com.simco.watcher.controller;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -70,10 +71,17 @@ public class ObservationsController {
             BindingResult errors,
             ModelMap model) {
 
-        logger.info("recordObservation invoked - selectedHomeId=[{}], lightsStatus=[{}]",
+        // set observation timestamp
+        newObservation.setTimestamp(LocalDateTime.now());
+
+        logger.info("recordObservation invoked - selectedHomeId=[{}], garageStatus=[{}], lightsStatus=[{}], forSaleStatus=[{}]",
                 newObservation.getSelectedHomeId(),
-                newObservation.getLightsStatus().getDisplayName()
+                newObservation.getGarageStatus().getDisplayName(),
+                newObservation.getLightsStatus().getDisplayName(),
+                newObservation.getForSaleStatus().getDisplayName()
                 );
+
+        // TODO: take selectedId, lookup, set the Home property
 
         // assign ID to the new observation and add it to our collection
         newObservation.setId(UUID.randomUUID());

@@ -1,16 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
-<div th:replace="fragments/head :: head(title='Neighborhood Watcher - Homes')"></div>
+<div th:replace="fragments/head :: head(title='Neighborhood Watcher - Record Observations')"></div>
 <body>
     <main role="main" class="container">
         <div class="jumbotron text-white bg-dark">
             <h1>Neighborhood Watcher - Record</h1>
-            <p class="lead">Browse the listing of homes in your neighborhood.</p>
+            <p class="lead">Enter the details of what you've seen in the form below.</p>
         </div>
+
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Record Observations</li>
+            </ol>
+        </nav>
 
         <div class="card">
             <div class="card-body">
-                <h5 class="card-title">Record New Observation</h5>
+                <h5 class="card-title">Record Your New Observations</h5>
                 <form action="#" th:action="@{/recordObservation}" th:object="${newObservation}" method="post">
 
 					<div class="form-group row">
@@ -20,6 +27,18 @@
 							<option th:each="h : ${homes}" th:value="${h.id}" th:text="${h.numberStreet}"/>
 						</select>
 					</div>
+
+                    <fieldset class="form-group">
+                        <div class="row">
+                            <legend class="col-form-label col-sm-2 pt-0">Garage</legend>
+                            <div class="col-sm-10">
+                                <div class="form-check" th:each="e : ${T(com.simco.watcher.model.GarageStatus).values()}">
+                                    <input class="form-check-input" type="radio" th:field="*{garageStatus}" id="gridRadios1" th:value="${e}">
+                                    <label class="form-check-label" for="gridRadios1" th:text="${e.displayName}">Radio label</label>
+                                </div>
+                            </div>
+                       </div>
+                    </fieldset>
 
 					<fieldset class="form-group">
 						<div class="row">
@@ -32,6 +51,20 @@
 							</div>
 					   </div>
 					</fieldset>
+
+                    <fieldset class="form-group">
+                        <div class="row">
+                            <legend class="col-form-label col-sm-2 pt-0">For Sale?</legend>
+                            <div class="col-sm-10">
+                                <div class="form-check" th:each="e : ${T(com.simco.watcher.model.HomeForSaleStatus).values()}">
+                                    <input class="form-check-input" type="radio" th:field="*{forSaleStatus}" id="gridRadios1" th:value="${e}">
+                                    <label class="form-check-label" for="gridRadios1" th:text="${e.displayName}">Radio label</label>
+                                </div>
+                            </div>
+                       </div>
+                    </fieldset>
+
+                    <button type="submit" class="btn btn-primary">Submit</button>
 
                 </form>
             </div>

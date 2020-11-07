@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<div th:replace="fragments/head :: head(title='Neighborhood Watcher - Home History')"></div>
+<body>
+    <main role="main" class="container">
+        <div class="jumbotron text-white bg-dark">
+            <h1>Neighborhood Watcher - Home History</h1>
+            <p class="lead">TODO</p>
+        </div>
+
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
+                <li class="breadcrumb-item"><a th:href="@{/homes}">Browse Homes</a></li>
+                <li class="breadcrumb-item active" aria-current="page">History</li>
+            </ol>
+        </nav>
+
+    </main>
+    <div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>
