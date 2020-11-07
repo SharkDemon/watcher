@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
+import com.simco.watcher.model.Doorbell;
 import com.simco.watcher.model.Home;
 import com.simco.watcher.model.Vehicle;
 import com.simco.watcher.model.VehicleColor;
@@ -14,12 +15,29 @@ import com.simco.watcher.model.VehicleColor;
 public class DummyDataService {
 
     private Home[] homes = {
-            Home.builder().id(UUID.randomUUID()).number("6459").street("Riviera Dr").city("Irving").state("TX").zip("75039").build(),
-            Home.builder().id(UUID.randomUUID()).number("6465").street("Riviera Dr").city("Irving").state("TX").zip("75039").build(),
-            Home.builder().id(UUID.randomUUID()).number("6469").street("Riviera Dr").city("Irving").state("TX").zip("75039").build(),
-            Home.builder().id(UUID.randomUUID()).number("6475").street("Riviera Dr").city("Irving").state("TX").zip("75039").build(),
-            Home.builder().id(UUID.randomUUID()).number("6481").street("Riviera Dr").city("Irving").state("TX").zip("75039").build(),
-            Home.builder().id(UUID.randomUUID()).number("6485").street("Riviera Dr").city("Irving").state("TX").zip("75039").build(),
+            Home.builder().id(UUID.randomUUID()).number("6459").street("Riviera Dr").city("Irving").state("TX").zip("75039")
+            .doorbell(Doorbell.NORMAL)
+            .build(),
+
+            Home.builder().id(UUID.randomUUID()).number("6465").street("Riviera Dr").city("Irving").state("TX").zip("75039")
+            .doorbell(Doorbell.RING_VIDEO_PRO)
+            .build(),
+
+            Home.builder().id(UUID.randomUUID()).number("6469").street("Riviera Dr").city("Irving").state("TX").zip("75039")
+            .doorbell(Doorbell.AUGUST_CAM_PRO)
+            .build(),
+
+            Home.builder().id(UUID.randomUUID()).number("6475").street("Riviera Dr").city("Irving").state("TX").zip("75039")
+            .doorbell(Doorbell.RING_VIDEO)
+            .build(),
+
+            Home.builder().id(UUID.randomUUID()).number("6481").street("Riviera Dr").city("Irving").state("TX").zip("75039")
+            .doorbell(Doorbell.RING_VIDEO)
+            .build(),
+
+            Home.builder().id(UUID.randomUUID()).number("6485").street("Riviera Dr").city("Irving").state("TX").zip("75039")
+            .doorbell(Doorbell.NORMAL)
+            .build(),
     };
 
     private Vehicle[] vehicles = {

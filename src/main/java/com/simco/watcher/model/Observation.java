@@ -5,11 +5,13 @@ import java.util.Set;
 import java.util.UUID;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor @AllArgsConstructor
+@Builder
 public class Observation {
 
     private UUID id;
@@ -24,6 +26,7 @@ public class Observation {
     private GarageStatus garageStatus;
     private HomeLightsStatus lightsStatus;
     private HomeForSaleStatus forSaleStatus;
+    private ContractorStatus contractorStatus;
 
     //
     private Set<Vehicle> vehicles;

@@ -16,7 +16,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.simco.watcher.model.ContractorStatus;
+import com.simco.watcher.model.GarageStatus;
 import com.simco.watcher.model.Home;
+import com.simco.watcher.model.HomeForSaleStatus;
+import com.simco.watcher.model.HomeLightsStatus;
 import com.simco.watcher.model.Observation;
 import com.simco.watcher.model.Vehicle;
 
@@ -53,12 +57,21 @@ public class ObservationsController {
 
         logger.info("showNewObservation invoked");
 
+        // create empty Observation object for data-entry, but let's setup
+        // default values for the form
+        Observation observation = Observation.builder()
+                .garageStatus(GarageStatus.CLOSED)
+                .lightsStatus(HomeLightsStatus.OFF)
+                .forSaleStatus(HomeForSaleStatus.NO_SIGN)
+                .contractorStatus(ContractorStatus.NO_SIGN)
+                .build();
+
         // add session variables
         model.addAttribute("homes", homes);
         model.addAttribute("vehicles", vehicles);
         model.addAttribute("observations", observations);
         // add data necessary to render view
-        model.addAttribute("newObservation", new Observation());
+        model.addAttribute("newObservation", observation);
         return "record";
     }
 
@@ -74,11 +87,12 @@ public class ObservationsController {
         // set observation timestamp
         newObservation.setTimestamp(LocalDateTime.now());
 
-        logger.info("recordObservation invoked - selectedHomeId=[{}], garageStatus=[{}], lightsStatus=[{}], forSaleStatus=[{}]",
+        logger.info("recordObservation invoked - selectedHomeId=[{}], garageStatus=[{}], lightsStatus=[{}], forSaleStatus=[{}], contractorStatus=[{}]",
                 newObservation.getSelectedHomeId(),
                 newObservation.getGarageStatus().getDisplayName(),
                 newObservation.getLightsStatus().getDisplayName(),
-                newObservation.getForSaleStatus().getDisplayName()
+                newObservation.getForSaleStatus().getDisplayName(),
+                newObservation.getContractorStatus().getDisplayName()
                 );
 
         // TODO: take selectedId, lookup, set the Home property

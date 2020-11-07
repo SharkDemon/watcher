@@ -24,8 +24,8 @@
                             <tr>
                                 <th scope="col">Home ID</th>
                                 <th scope="col">City, State, Zip</th>
-                                <th scope="col" data-toggle="tooltip" data-placement="top" title="Was a 'For Sale' sign seen on the property?">For Sale</th>
-                                <th scope="col">Contractor</th>
+                                <th scope="col">Doorbell</th>
+                                <th scope="col" data-toggle="tooltip" data-placement="top" title="Were any signs seen on the property?">Signage</th>
                                 <th scope="col">Actions</th>
                             </tr>
                         </thead>
@@ -33,7 +33,7 @@
                             <tr th:each="h : ${homes}">
                                 <td th:text="${h.number + ' ' + h.street}">Number and Street</td>
                                 <td th:text="${h.cityStateZip}">City State Zip</td>
-                                <td>TODO</td>
+                                <td th:text="${h.doorbell.displayName}">Doorbell</td>
                                 <td>TODO</td>
                                 <td><a href="#">Edit</a> 
                                         | <a th:href="@{'/homes/history/' + ${h.id}}" href="#">History</a> 

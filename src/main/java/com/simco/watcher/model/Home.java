@@ -21,6 +21,8 @@ public class Home {
     private String city;
     private String state;
     private String zip;
+    // home details
+    private Doorbell doorbell;
 
     public String getNumberStreet() {
         return String.format("%s %s", number, street);

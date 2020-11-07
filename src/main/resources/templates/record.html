@@ -33,8 +33,8 @@
                             <legend class="col-form-label col-sm-2 pt-0">Garage</legend>
                             <div class="col-sm-10">
                                 <div class="form-check" th:each="e : ${T(com.simco.watcher.model.GarageStatus).values()}">
-                                    <input class="form-check-input" type="radio" th:field="*{garageStatus}" id="gridRadios1" th:value="${e}">
-                                    <label class="form-check-label" for="gridRadios1" th:text="${e.displayName}">Radio label</label>
+                                    <input class="form-check-input" type="radio" th:field="*{garageStatus}" id="garageStatusRadio" th:value="${e}">
+                                    <label class="form-check-label" for="garageStatusRadio" th:text="${e.displayName}">Radio label</label>
                                 </div>
                             </div>
                        </div>
@@ -45,8 +45,8 @@
 							<legend class="col-form-label col-sm-2 pt-0">House Lights</legend>
 							<div class="col-sm-10">
 	    						<div class="form-check" th:each="e : ${T(com.simco.watcher.model.HomeLightsStatus).values()}">
-	                                <input class="form-check-input" type="radio" th:field="*{lightsStatus}" id="gridRadios1" th:value="${e}">
-	                                <label class="form-check-label" for="gridRadios1" th:text="${e.displayName}">Radio label</label>
+	                                <input class="form-check-input" type="radio" th:field="*{lightsStatus}" id="lightsStatusRadio" th:value="${e}">
+	                                <label class="form-check-label" for="lightsStatusRadio" th:text="${e.displayName}">Radio label</label>
 	                            </div>
 							</div>
 					   </div>
@@ -57,8 +57,20 @@
                             <legend class="col-form-label col-sm-2 pt-0">For Sale?</legend>
                             <div class="col-sm-10">
                                 <div class="form-check" th:each="e : ${T(com.simco.watcher.model.HomeForSaleStatus).values()}">
-                                    <input class="form-check-input" type="radio" th:field="*{forSaleStatus}" id="gridRadios1" th:value="${e}">
-                                    <label class="form-check-label" for="gridRadios1" th:text="${e.displayName}">Radio label</label>
+                                    <input class="form-check-input" type="radio" th:field="*{forSaleStatus}" id="forSaleStatusRadio" th:value="${e}">
+                                    <label class="form-check-label" for="forSaleStatusRadio" th:text="${e.displayName}">Radio label</label>
+                                </div>
+                            </div>
+                       </div>
+                    </fieldset>
+
+                    <fieldset class="form-group">
+                        <div class="row">
+                            <legend class="col-form-label col-sm-2 pt-0">Contractor Sign?</legend>
+                            <div class="col-sm-10">
+                                <div class="form-check" th:each="e : ${T(com.simco.watcher.model.ContractorStatus).values()}">
+                                    <input class="form-check-input" type="radio" th:field="*{contractorStatus}" id="contractorStatusRadio" th:value="${e}">
+                                    <label class="form-check-label" for="contractorStatusRadio" th:text="${e.displayName}">Radio label</label>
                                 </div>
                             </div>
                        </div>
