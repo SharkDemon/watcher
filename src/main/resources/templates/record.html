@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<div th:replace="fragments/head :: head(title='Neighborhood Watcher - Homes')"></div>
+<body>
+    <main role="main" class="container">
+        <div class="jumbotron text-white bg-dark">
+            <h1>Neighborhood Watcher - Record</h1>
+            <p class="lead">Browse the listing of homes in your neighborhood.</p>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Record New Observation</h5>
+                <form action="#" th:action="@{/recordObservation}" th:object="${newObservation}" method="post">
+
+					<div class="form-group row">
+						<label for="selectedHomeId" class="col-sm-2 col-form-label">Home</label>
+						<select class="col-sm-10 form-control" th:field="*{selectedHomeId}" required>
+							<option value="">(select)</option>
+							<option th:each="h : ${homes}" th:value="${h.id}" th:text="${h.numberStreet}"/>
+						</select>
+					</div>
+
+					<fieldset class="form-group">
+						<div class="row">
+							<legend class="col-form-label col-sm-2 pt-0">House Lights</legend>
+							<div class="col-sm-10">
+	    						<div class="form-check" th:each="e : ${T(com.simco.watcher.model.HomeLightsStatus).values()}">
+	                                <input class="form-check-input" type="radio" th:field="*{lightsStatus}" id="gridRadios1" th:value="${e}">
+	                                <label class="form-check-label" for="gridRadios1" th:text="${e.displayName}">Radio label</label>
+	                            </div>
+							</div>
+					   </div>
+					</fieldset>
+
+                </form>
+            </div>
+        </div>
+
+    </main>
+    <div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>

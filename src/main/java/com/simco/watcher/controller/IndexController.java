@@ -1,5 +1,6 @@
 package com.simco.watcher.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -12,12 +13,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.simco.watcher.model.Home;
+import com.simco.watcher.model.Observation;
 import com.simco.watcher.model.Vehicle;
 import com.simco.watcher.service.DummyDataService;
 import com.simco.watcher.service.ImageService;
 
 @Controller
-@SessionAttributes({"homes", "vehicles"})
+@SessionAttributes({"homes", "vehicles", "observations"})
 public class IndexController {
 
     private static final Logger logger = LoggerFactory.getLogger(IndexController.class);
@@ -39,10 +41,17 @@ public class IndexController {
         return null;
     }
 
+    // keep the list of Observation objects in the session
+    @ModelAttribute("observations")
+    public List<Observation> observationsList() {
+        return null;
+    }
+
     @GetMapping("/")
     public String showIndex(
             @ModelAttribute("homes") List<Home> homes,
             @ModelAttribute("vehicles") List<Vehicle> vehicles,
+            @ModelAttribute("observations") List<Observation> observations,
             Model model) {
 
         // on the first visit to index page, ensure the homes and vehicles lists
@@ -51,6 +60,8 @@ public class IndexController {
             homes = dataService.getAllHomes();
         if (null == vehicles)
             vehicles = dataService.getAllVehicles();
+        if (null == observations)
+            observations = new ArrayList<Observation>(0);
 
         String homesCardImagePath = imageService.getRandomHomeCardImage();
         String vehiclesCardImagePath = imageService.getRandomVehicleCardImage();
@@ -67,6 +78,7 @@ public class IndexController {
         // add session variables
         model.addAttribute("homes", homes);
         model.addAttribute("vehicles", vehicles);
+        model.addAttribute("observations", observations);
         // add data necessary to render view
         model.addAttribute("homesCardImagePath", homesCardImagePath);
         model.addAttribute("vehiclesCardImagePath", vehiclesCardImagePath);

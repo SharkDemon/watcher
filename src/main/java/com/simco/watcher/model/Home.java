@@ -22,6 +22,10 @@ public class Home {
     private String state;
     private String zip;
 
+    public String getNumberStreet() {
+        return String.format("%s %s", number, street);
+    }
+
     public String getCityStateZip() {
         return String.format("%s, %s %s", city, state, zip);
     }

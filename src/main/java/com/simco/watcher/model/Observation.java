@@ -2,6 +2,7 @@ package com.simco.watcher.model;
 
 import java.time.LocalDateTime;
 import java.util.Set;
+import java.util.UUID;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,10 +12,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor @AllArgsConstructor
 public class Observation {
 
+    private UUID id;
+
     // when the observation was made
     private LocalDateTime timestamp;
 
     // observing which home
+    private UUID selectedHomeId;
     private Home home;
     // observed details about home
     private GarageStatus garageStatus;
