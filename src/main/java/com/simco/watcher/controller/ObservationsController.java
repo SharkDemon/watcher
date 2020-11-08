@@ -3,6 +3,7 @@ package com.simco.watcher.controller;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,8 +49,8 @@ public class ObservationsController {
         return null;
     }
 
-    @GetMapping("/recordObservation")
-    public String showNewObservation(
+    @GetMapping("/observations/add")
+    public String showAddObservation(
             @ModelAttribute("homes") List<Home> homes,
             @ModelAttribute("vehicles") List<Vehicle> vehicles,
             @ModelAttribute("observations") List<Observation> observations,
@@ -76,8 +77,8 @@ public class ObservationsController {
         return "record";
     }
 
-    @PostMapping("/recordObservation")
-    public ModelAndView recordObservation(
+    @PostMapping("/observations/add")
+    public ModelAndView addObservation(
             @ModelAttribute("homes") List<Home> homes,
             @ModelAttribute("vehicles") List<Vehicle> vehicles,
             @ModelAttribute("observations") List<Observation> observations,
@@ -97,7 +98,12 @@ public class ObservationsController {
                 newObservation.getContractorStatus().getDisplayName()
                 );
 
-        // TODO: take selectedId, lookup, set the Home property
+        // take the selectedId, lookup the Home, and set the Home property
+        Home homeUnderObservation = homes.stream()
+                .filter(huo -> huo.getId().equals(newObservation.getSelectedHomeId()))
+                .collect(Collectors.toList())
+                .get(0); // let's assume a find
+        newObservation.setHome(homeUnderObservation);
 
         // assign ID to the new observation and add it to our collection
         newObservation.setId(UUID.randomUUID());
@@ -107,7 +113,7 @@ public class ObservationsController {
         model.addAttribute("homes", homes);
         model.addAttribute("vehicles", vehicles);
         model.addAttribute("observations", observations);
-        return new ModelAndView("redirect:/", model);
+        return new ModelAndView("redirect:/homes/history/" + newObservation.getSelectedHomeId(), model);
     }
 
 }
