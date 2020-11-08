@@ -19,17 +19,18 @@ public class Home {
     // usually the following 3 fields are same, since these are all homes in
     // the same neighborhood, but capturing for map-making
     private String city;
-    private String state;
+    private State state;
     private String zip;
     // home details
     private Doorbell doorbell;
+    private SecurityCamera securityCamera;
 
     public String getNumberStreet() {
         return String.format("%s %s", number, street);
     }
 
     public String getCityStateZip() {
-        return String.format("%s, %s %s", city, state, zip);
+        return String.format("%s, %s %s", city, state.getAbbreviation(), zip);
     }
 
 }

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<div th:replace="fragments/head :: head(title='Neighborhood Watcher - Edit Home')"></div>
+<body>
+    <main role="main" class="container">
+        <div class="jumbotron text-white bg-dark">
+            <h1>Neighborhood Watcher - Edit Home</h1>
+            <p class="lead">Modify the home in the form below.</p>
+        </div>
+
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
+                <li class="breadcrumb-item"><a th:href="@{/homes}">Browse Homes</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Edit Home</li>
+            </ol>
+        </nav>
+
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Edit Home Details</h5>
+                <form action="#" th:action="@{/editHome}" th:object="${homeToEdit}" method="post">
+
+                    <fieldset class="form-group">
+                        <div class="row">
+                            <legend class="col-form-label col-sm-2 pt-0">Home Address</legend>
+                            <div class="col-sm-10" th:text="${homeToEdit.numberStreet}"></div>
+                       </div>
+                    </fieldset>
+
+                    <fieldset class="form-group">
+                        <div class="row">
+                            <legend class="col-form-label col-sm-2 pt-0">Doorbell</legend>
+                            <div class="col-sm-10">
+                                <div class="form-check" th:each="e : ${T(com.simco.watcher.model.Doorbell).values()}">
+                                    <input class="form-check-input" type="radio" th:field="*{doorbell}" id="doorbellRadio" th:value="${e}">
+                                    <label class="form-check-label" for="doorbellRadio" th:text="${e.displayName}">Radio label</label>
+                                </div>
+                            </div>
+                       </div>
+                    </fieldset>
+
+                    <fieldset class="form-group">
+                        <div class="row">
+                            <legend class="col-form-label col-sm-2 pt-0">Security Cameras</legend>
+                            <div class="col-sm-10">
+                                <div class="form-check" th:each="e : ${T(com.simco.watcher.model.SecurityCamera).values()}">
+                                    <input class="form-check-input" type="radio" th:field="*{securityCamera}" id="securityCamerasRadio" th:value="${e}">
+                                    <label class="form-check-label" for="securityCamerasRadio" th:text="${e.displayName}">Radio label</label>
+                                </div>
+                            </div>
+                       </div>
+                    </fieldset>
+
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <a th:href="@{/homes}" href="#" id="cancel" name="cancel" class="btn btn-default">Cancel</a>
+                    
+                </form>
+            </div>
+        </div>
+
+    </main>
+    <div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>

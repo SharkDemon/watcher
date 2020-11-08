@@ -22,7 +22,8 @@
                     <table class="table table-striped table-hover">
                         <thead class="thead-dark">
                             <tr>
-                                <th scope="col">License Plate Information</th>
+                                <th scope="col">License Plate Number</th>
+                                <th scope="col">License Plate State</th>
                                 <th scope="col">Color</th>
                                 <th scope="col">Make/Model</th>
                                 <th scope="col">Actions</th>
@@ -30,7 +31,8 @@
                         </thead>
                         <tbody>
                             <tr th:each="v : ${vehicles}">
-                                <td th:text="${v.plateState + ' ' + v.plateNumber}">License Plate State and Number</td>
+                                <td th:text="${v.plateNumber}">License Plate Number</td>
+                                <td th:text="${v.plateState}">State</td>
                                 <td th:text="${v.color.displayName}">Color</td>
                                 <td th:text="${v.make + ' ' + v.model}">Make and Model</td>
                                 <td><a href="#">Edit</a> 

@@ -17,7 +17,7 @@ public class Vehicle {
     private VehicleColor color;
     private String make;
     private String model;
-    private String plateState;
+    private State plateState;
     private String plateNumber;
 
 }

@@ -53,6 +53,25 @@ public class HomesController {
         return "homes";
     }
 
+    @GetMapping("/homes/edit/{homeId}")
+    public String showEditHome(
+            @ModelAttribute("homes") List<Home> homes,
+            @PathVariable UUID homeId,
+            ModelMap model) {
+
+        logger.info("showEditHome invoked - homeId=[{}]", homeId);
+
+        // get the home matching on UUID
+        Home homeToEdit = homes.stream()
+                .filter(cc -> cc.getId().equals(homeId))
+                .collect(Collectors.toList())
+                .get(0); // let's assume a find
+
+        model.addAttribute("homes", homes);
+        model.addAttribute("homeToEdit", homeToEdit);
+        return "editHome";
+    }
+
     @GetMapping("/homes/remove/{homeId}")
     public ModelAndView removeHome(
             @ModelAttribute("homes") List<Home> homes,

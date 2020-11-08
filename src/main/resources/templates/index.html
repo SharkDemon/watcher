@@ -11,7 +11,7 @@
         <div class="d-flex justify-content-around">
 
 	        <div class="card text-center bg-light" style="width: 300px;">
-	            <img class="card-img-top" th:src="@{${homesCardImagePath}}" alt="Browse homes">
+	            <a th:href="@{homes}"><img class="card-img-top" th:src="@{${homesCardImagePath}}" alt="Browse homes"></a>
 	            <div class="card-body">
 	                <h5 class="card-title">Browse Homes</h5>
 	                <p class="card-text">Examine details about the homes in your neighborhood.</p>
@@ -20,7 +20,7 @@
 	        </div>
 	
 	        <div class="card text-center bg-light" style="width: 300px;">
-	            <img class="card-img-top" th:src="@{${vehiclesCardImagePath}}" alt="Browse vehicles">
+	            <a th:href="@{vehicles}"><img class="card-img-top" th:src="@{${vehiclesCardImagePath}}" alt="Browse vehicles"></a>
 	            <div class="card-body">
 	                <h5 class="card-title">Browse Vehicles</h5>
 	                <p class="card-text">See which vehicles have been spotted in your neighborhood.</p>
@@ -29,7 +29,7 @@
 	        </div>
 	        
 	        <div class="card text-center bg-light" style="width: 300px;">
-	            <img class="card-img-top" th:src="@{${observeCardImagePath}}" alt="Record observations">
+	            <a th:href="@{recordObservation}"><img class="card-img-top" th:src="@{${observeCardImagePath}}" alt="Record observations"></a>
 	            <div class="card-body">
 	                <h5 class="card-title">Record Observations</h5>
 	                <p class="card-text">Out for a walk?  Submit information about what you've seen.</p>
