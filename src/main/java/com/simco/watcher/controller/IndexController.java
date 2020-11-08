@@ -1,6 +1,5 @@
 package com.simco.watcher.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -54,14 +53,15 @@ public class IndexController {
             @ModelAttribute("observations") List<Observation> observations,
             Model model) {
 
-        // on the first visit to index page, ensure the homes and vehicles lists
-        // have been initialized and populated with dummy data
+        // on the first visit to index page, ensure the homes, vehicles, and
+        // observations lists have been initialized and populated with dummy
+        // data
         if (null == homes)
             homes = dataService.getAllHomes();
         if (null == vehicles)
             vehicles = dataService.getAllVehicles();
         if (null == observations)
-            observations = new ArrayList<Observation>(0);
+            observations = dataService.getAllObservations();
 
         String homesCardImagePath = imageService.getRandomHomeCardImage();
         String vehiclesCardImagePath = imageService.getRandomVehicleCardImage();

@@ -42,15 +42,27 @@
 
 					<fieldset class="form-group">
 						<div class="row">
-							<legend class="col-form-label col-sm-2 pt-0">House Lights</legend>
+							<legend class="col-form-label col-sm-2 pt-0">Exterior House Lights</legend>
 							<div class="col-sm-10">
 	    						<div class="form-check" th:each="e : ${T(com.simco.watcher.model.HomeLightsStatus).values()}">
-	                                <input class="form-check-input" type="radio" th:field="*{lightsStatus}" id="lightsStatusRadio" th:value="${e}">
-	                                <label class="form-check-label" for="lightsStatusRadio" th:text="${e.displayName}">Radio label</label>
+	                                <input class="form-check-input" type="radio" th:field="*{extLightsStatus}" id="extLightsStatusRadio" th:value="${e}">
+	                                <label class="form-check-label" for="extLightsStatusRadio" th:text="${e.displayName}">Radio label</label>
 	                            </div>
 							</div>
 					   </div>
 					</fieldset>
+
+                    <fieldset class="form-group">
+                        <div class="row">
+                            <legend class="col-form-label col-sm-2 pt-0">Interior House Lights</legend>
+                            <div class="col-sm-10">
+                                <div class="form-check" th:each="e : ${T(com.simco.watcher.model.HomeLightsStatus).values()}">
+                                    <input class="form-check-input" type="radio" th:field="*{intLightsStatus}" id="intLightsStatusRadio" th:value="${e}">
+                                    <label class="form-check-label" for="intLightsStatusRadio" th:text="${e.displayName}">Radio label</label>
+                                </div>
+                            </div>
+                       </div>
+                    </fieldset>
 
                     <fieldset class="form-group">
                         <div class="row">

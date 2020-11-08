@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<div th:replace="fragments/head :: head(title='Neighborhood Watcher - Add Vehicle')"></div>
+<body>
+    <main role="main" class="container">
+        <div class="jumbotron text-white bg-dark">
+            <h1>Neighborhood Watcher - Add Vehicle</h1>
+            <p class="lead">Enter new Vehicle information in the form below.</p>
+        </div>
+
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
+                <li class="breadcrumb-item"><a th:href="@{/vehicles}">Browse Vehicles</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Add Vehicle</li>
+            </ol>
+        </nav>
+
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">New Vehicle Details</h5>
+                <form action="#" th:action="@{/vehicles/add}" th:object="${newVehicle}" method="post">
+
+					<div class="form-row">
+						<div class="col-md-4 mb-3">
+							<label for="vehicleColor">Color</label>
+							<select class="form-control" id="vehicleColor" th:field="*{color}" required>
+							    <option value="">(select)</option>
+                                <option th:each="e : ${T(com.simco.watcher.model.VehicleColor).values()}" th:value="${e}" th:text="${e.displayName}"></option>
+							</select>
+						</div>
+						<div class="col-md-4 mb-3">
+							<label for="vehicleMake">Make</label>
+							<input type="text" class="form-control" id="vehicleMake" th:field="*{make}" required>
+						</div>
+						<div class="col-md-4 mb-3">
+                            <label for="vehicleModel">Model</label>
+                            <input type="text" class="form-control" id="vehicleModel" th:field="*{model}" required>
+						</div>
+					</div>
+
+                    <div class="form-row">
+                        <div class="col-md-3 mb-3">
+                            <label for="vehiclePlateNumber">License Plate Number</label>
+                            <input type="text" class="form-control" id="vehiclePlateNumber" th:field="*{plateNumber}" required>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label for="vehiclePlateState">License Plate State</label>
+                            <select class="form-control" id="vehiclePlateState" th:field="*{plateState}" required>
+                                <option value="">(select)</option>
+                                <option th:each="e : ${T(com.simco.watcher.model.State).values()}" th:value="${e}" th:text="${e.abbreviation + ' - ' + e.displayName}"></option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <a th:href="@{/vehicles}" href="#" id="cancel" name="cancel" class="btn btn-default">Cancel</a>
+                    
+                </form>
+            </div>
+        </div>
+
+    </main>
+    <div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>

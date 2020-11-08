@@ -61,7 +61,8 @@ public class ObservationsController {
         // default values for the form
         Observation observation = Observation.builder()
                 .garageStatus(GarageStatus.CLOSED)
-                .lightsStatus(HomeLightsStatus.OFF)
+                .extLightsStatus(HomeLightsStatus.OFF)
+                .intLightsStatus(HomeLightsStatus.OFF)
                 .forSaleStatus(HomeForSaleStatus.NO_SIGN)
                 .contractorStatus(ContractorStatus.NO_SIGN)
                 .build();
@@ -87,10 +88,11 @@ public class ObservationsController {
         // set observation timestamp
         newObservation.setTimestamp(LocalDateTime.now());
 
-        logger.info("recordObservation invoked - selectedHomeId=[{}], garageStatus=[{}], lightsStatus=[{}], forSaleStatus=[{}], contractorStatus=[{}]",
+        logger.info("recordObservation invoked - selectedHomeId=[{}], garageStatus=[{}], extLightsStatus=[{}], intLightsStatus=[{}], forSaleStatus=[{}], contractorStatus=[{}]",
                 newObservation.getSelectedHomeId(),
                 newObservation.getGarageStatus().getDisplayName(),
-                newObservation.getLightsStatus().getDisplayName(),
+                newObservation.getExtLightsStatus().getDisplayName(),
+                newObservation.getIntLightsStatus().getDisplayName(),
                 newObservation.getForSaleStatus().getDisplayName(),
                 newObservation.getContractorStatus().getDisplayName()
                 );

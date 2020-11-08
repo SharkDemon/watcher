@@ -1,5 +1,6 @@
 package com.simco.watcher.controller;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -17,10 +18,11 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.simco.watcher.model.Home;
+import com.simco.watcher.model.Observation;
 import com.simco.watcher.service.DummyDataService;
 
 @Controller
-@SessionAttributes({"homes"})
+@SessionAttributes({"homes", "observations"})
 public class HomesController {
 
     private static final Logger logger = LoggerFactory.getLogger(HomesController.class);
@@ -31,6 +33,12 @@ public class HomesController {
     // keep the list of Home objects in the session
     @ModelAttribute("homes")
     public List<Home> homesList() {
+        return null;
+    }
+
+    // keep the list of Observation objects in the session
+    @ModelAttribute("observations")
+    public List<Observation> observationsList() {
         return null;
     }
 
@@ -93,13 +101,32 @@ public class HomesController {
 
     @GetMapping("/homes/history/{homeId}")
     public String showHomeHistory(
+            @ModelAttribute("homes") List<Home> homes,
+            @ModelAttribute("observations") List<Observation> observations,
             @PathVariable UUID homeId,
             Model model) {
 
-        logger.info("showHomeHistory invoked - for homeId=[{}]",
+        // get the home matching on UUID
+        Home homeToShowHistory = homes.stream()
+                .filter(h -> h.getId().equals(homeId))
+                .collect(Collectors.toList())
+                .get(0); // let's assume a find
+
+        // find observations for the specified home (matching on UUID) and
+        // sort in descending
+        List<Observation> homeObservations = observations.stream()
+                .filter(ho -> ho.getHome().getId().equals(homeId))
+                .sorted(Comparator.comparing(Observation::getTimestamp).reversed())
+                .collect(Collectors.toList());
+
+        logger.info("showHomeHistory invoked - found [{}] observations for homeId=[{}]",
+                homeObservations.size(),
                 homeId
                 );
 
+        // add data necessary to render view
+        model.addAttribute("homeToShowHistory", homeToShowHistory);
+        model.addAttribute("homeObservations", homeObservations);
         return "homeHistory";
     }
 

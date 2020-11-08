@@ -1,5 +1,6 @@
 package com.simco.watcher.controller;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -10,12 +11,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.simco.watcher.model.State;
 import com.simco.watcher.model.Vehicle;
 import com.simco.watcher.service.DummyDataService;
 
@@ -48,6 +52,10 @@ public class VehiclesController {
                 vehicles.size()
                 );
 
+        vehicles = vehicles.stream()
+                .sorted(Comparator.comparing(Vehicle::getPlateNumber))
+                .collect(Collectors.toList());
+
         // add session variables
         model.addAttribute("vehicles", vehicles);
         return "vehicles";
@@ -65,6 +73,50 @@ public class VehiclesController {
         vehicles = vehicles.stream()
                 .filter(v -> !v.getId().equals(vehicleId))
                 .collect(Collectors.toList());
+
+        // add session variables
+        model.addAttribute("vehicles", vehicles);
+        return new ModelAndView("redirect:/vehicles", model);
+    }
+
+    @GetMapping("/vehicles/add")
+    public String showAddVehicle(
+            @ModelAttribute("vehicles") List<Vehicle> vehicles,
+            Model model) {
+
+        logger.info("showAddVehicle invoked");
+
+        Vehicle newVehicle = Vehicle.builder()
+                .plateState(State.TX)
+                .build();
+
+        // add session variables
+        model.addAttribute("vehicles", vehicles);
+        // add data necessary to render view
+        model.addAttribute("newVehicle", newVehicle);
+        return "addVehicle";
+    }
+
+    @PostMapping("/vehicles/add")
+    public ModelAndView addVehicle(
+            @ModelAttribute("vehicles") List<Vehicle> vehicles,
+            @ModelAttribute Vehicle newVehicle,
+            BindingResult errors,
+            ModelMap model) {
+
+        // force the license plate number into upper case
+        newVehicle.setPlateNumber(newVehicle.getPlateNumber().toUpperCase());
+
+        logger.info("addVehicle invoked - color=[{}], make=[{}], model=[{}], plateNumber=[{}], plateState=[{}]",
+                newVehicle.getColor().getDisplayName(),
+                newVehicle.getMake(),
+                newVehicle.getModel(),
+                newVehicle.getPlateNumber(),
+                newVehicle.getPlateState().getAbbreviation());
+
+        // assign ID to the new Vehicle and add it to our collection
+        newVehicle.setId(UUID.randomUUID());
+        vehicles.add(newVehicle);
 
         // add session variables
         model.addAttribute("vehicles", vehicles);

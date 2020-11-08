@@ -1,13 +1,21 @@
 package com.simco.watcher.service;
 
+import java.time.LocalDateTime;
+import java.time.Month;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
+import com.simco.watcher.model.ContractorStatus;
 import com.simco.watcher.model.Doorbell;
+import com.simco.watcher.model.GarageStatus;
 import com.simco.watcher.model.Home;
+import com.simco.watcher.model.HomeForSaleStatus;
+import com.simco.watcher.model.HomeLightsStatus;
+import com.simco.watcher.model.Observation;
 import com.simco.watcher.model.SecurityCamera;
 import com.simco.watcher.model.State;
 import com.simco.watcher.model.Vehicle;
@@ -72,12 +80,43 @@ public class DummyDataService {
             .build(),
     };
 
+    public Observation[] observations = {
+            // for homes[0]
+            Observation.builder().id(UUID.randomUUID()).selectedHomeId(homes[0].getId()).home(homes[0])
+            .timestamp(LocalDateTime.of(2020, Month.OCTOBER, 28, 8, 30, 0, 0))
+            .garageStatus(GarageStatus.CLOSED).extLightsStatus(HomeLightsStatus.OFF).intLightsStatus(HomeLightsStatus.OFF).forSaleStatus(HomeForSaleStatus.NO_SIGN).contractorStatus(ContractorStatus.NO_SIGN)
+            .build(),
+            Observation.builder().id(UUID.randomUUID()).selectedHomeId(homes[0].getId()).home(homes[0])
+            .timestamp(LocalDateTime.of(2020, Month.OCTOBER, 29, 10, 30, 0, 0))
+            .garageStatus(GarageStatus.CLOSED).extLightsStatus(HomeLightsStatus.OFF).intLightsStatus(HomeLightsStatus.OFF).forSaleStatus(HomeForSaleStatus.NO_SIGN).contractorStatus(ContractorStatus.NO_SIGN)
+            .build(),
+            Observation.builder().id(UUID.randomUUID()).selectedHomeId(homes[0].getId()).home(homes[0])
+            .timestamp(LocalDateTime.of(2020, Month.OCTOBER, 30, 11, 45, 0, 0))
+            .garageStatus(GarageStatus.CLOSED).extLightsStatus(HomeLightsStatus.OFF).intLightsStatus(HomeLightsStatus.OFF).forSaleStatus(HomeForSaleStatus.NO_SIGN).contractorStatus(ContractorStatus.NO_SIGN)
+            .build(),
+            Observation.builder().id(UUID.randomUUID()).selectedHomeId(homes[0].getId()).home(homes[0])
+            .timestamp(LocalDateTime.of(2020, Month.NOVEMBER, 1, 18, 37, 0, 0))
+            .garageStatus(GarageStatus.OPEN).extLightsStatus(HomeLightsStatus.ON).intLightsStatus(HomeLightsStatus.ON).forSaleStatus(HomeForSaleStatus.NO_SIGN).contractorStatus(ContractorStatus.NO_SIGN)
+            .build(),
+            Observation.builder().id(UUID.randomUUID()).selectedHomeId(homes[0].getId()).home(homes[0])
+            .timestamp(LocalDateTime.of(2020, Month.NOVEMBER, 4, 13, 45, 0, 0))
+            .garageStatus(GarageStatus.OPEN).extLightsStatus(HomeLightsStatus.OFF).intLightsStatus(HomeLightsStatus.OFF).forSaleStatus(HomeForSaleStatus.NO_SIGN).contractorStatus(ContractorStatus.NO_SIGN)
+            .build(),
+
+            // for homes[1]
+
+    };
+
     public List<Home> getAllHomes() {
-        return Arrays.asList(homes);
+        return new ArrayList<Home>(Arrays.asList(homes));
     }
 
     public List<Vehicle> getAllVehicles() {
-        return Arrays.asList(vehicles);
+        return new ArrayList<Vehicle>(Arrays.asList(vehicles));
+    }
+
+    public List<Observation> getAllObservations() {
+        return new ArrayList<Observation>(Arrays.asList(observations));
     }
 
 }
