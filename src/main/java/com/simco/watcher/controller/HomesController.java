@@ -1,5 +1,6 @@
 package com.simco.watcher.controller;
 
+import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
@@ -7,7 +8,6 @@ import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.simco.watcher.model.ContractorStatus;
@@ -25,28 +24,11 @@ import com.simco.watcher.model.Home;
 import com.simco.watcher.model.HomeForSaleStatus;
 import com.simco.watcher.model.Observation;
 import com.simco.watcher.model.SecurityCamera;
-import com.simco.watcher.service.DummyDataService;
 
 @Controller
-@SessionAttributes({"homes", "observations"})
-public class HomesController {
+public class HomesController extends BaseController {
 
     private static final Logger logger = LoggerFactory.getLogger(HomesController.class);
-
-    @Autowired
-    private DummyDataService dataService;
-
-    // keep the list of Home objects in the session
-    @ModelAttribute("homes")
-    public List<Home> homesList() {
-        return null;
-    }
-
-    // keep the list of Observation objects in the session
-    @ModelAttribute("observations")
-    public List<Observation> observationsList() {
-        return null;
-    }
 
     @GetMapping("/homes")
     public String showHomes(
@@ -54,33 +36,32 @@ public class HomesController {
             @ModelAttribute("observations") List<Observation> observations,
             Model model) {
 
-        // just in case we visit this page first, ensure homes list
-        // has been initialized and populated with dummy data
-        if (null == homes)
-            homes = dataService.getAllHomes();
-
-        logger.info("showHomes invoked - returning homes=[{}]",
-                homes.size()
-                );
+        logger.info("showHomes invoked - returning homes=[{}]", homes.size());
 
         // set the signage property and mostRecentObservationTimestamp property
         // on each Home
+        // remember that newly-created Homes will not yet have observations
         // ...YES, i know it's convoluted
         homes.stream().forEach(h -> {
+            String signage = "";
+            LocalDateTime latestObservationTimestamp = LocalDateTime.now();
             // get observations for this home, in desc order
-            Observation latestObservation = observations.stream()
+            List<Observation> latestObservationList = observations.stream()
                     .filter(o -> o.getSelectedHomeId().equals(h.getId()))
                     .sorted(Comparator.comparing(Observation::getTimestamp).reversed())
-                    .collect(Collectors.toList()).get(0);
-            String signage = "";
-            if (latestObservation.getForSaleStatus().equals(HomeForSaleStatus.FOR_SALE_SIGN))
-                signage = HomeForSaleStatus.FOR_SALE_SIGN.getDisplayName();
-            if (latestObservation.getContractorStatus().equals(ContractorStatus.CONTRACTOR_SIGN))
-                signage += ((0 == signage.length()) ? "" : ", ") + ContractorStatus.CONTRACTOR_SIGN.getDisplayName();
+                    .collect(Collectors.toList());
+            if (0 < latestObservationList.size()) {
+                Observation latestObservation = latestObservationList.get(0);
+                if (latestObservation.getForSaleStatus().equals(HomeForSaleStatus.FOR_SALE_SIGN))
+                    signage = HomeForSaleStatus.FOR_SALE_SIGN.getDisplayName();
+                if (latestObservation.getContractorStatus().equals(ContractorStatus.CONTRACTOR_SIGN))
+                    signage += ((0 == signage.length()) ? "" : ", ") + ContractorStatus.CONTRACTOR_SIGN.getDisplayName();
+                latestObservationTimestamp = latestObservation.getTimestamp();
+            }
             if (0 == signage.length())
                 signage = "None";
             h.setSignage(signage);
-            h.setMostRecentObservationTimestamp(latestObservation.getTimestamp());
+            h.setMostRecentObservationTimestamp(latestObservationTimestamp);
         });
 
         // sort Homes by asc number and then by asc street
@@ -90,6 +71,7 @@ public class HomesController {
 
         // add session variables
         model.addAttribute("homes", homes);
+        model.addAttribute("observations", observations);
         return "homes";
     }
 

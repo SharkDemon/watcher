@@ -14,7 +14,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.simco.watcher.model.ContractorStatus;
@@ -26,28 +25,9 @@ import com.simco.watcher.model.Observation;
 import com.simco.watcher.model.Vehicle;
 
 @Controller
-@SessionAttributes({"homes", "vehicles", "observations"})
-public class ObservationsController {
+public class ObservationsController extends BaseController {
 
     private static final Logger logger = LoggerFactory.getLogger(ObservationsController.class);
-
-    // keep the list of Home objects in the session
-    @ModelAttribute("homes")
-    public List<Home> homesList() {
-        return null;
-    }
-
-    // keep the list of Vehicle objects in the session
-    @ModelAttribute("vehicles")
-    public List<Vehicle> vehiclesList() {
-        return null;
-    }
-
-    // keep the list of Observation objects in the session
-    @ModelAttribute("observations")
-    public List<Observation> observationsList() {
-        return null;
-    }
 
     @GetMapping("/observations/add")
     public String showAddObservation(

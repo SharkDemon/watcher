@@ -42,7 +42,7 @@ public class Home {
     }
 
     public String getMostRecentObservationDateDisplayValue() {
-        return null == mostRecentObservationTimestamp ? "" : DATE_FORMATTER.format(mostRecentObservationTimestamp);
+        return (null == mostRecentObservationTimestamp) ? "" : "as of " + DATE_FORMATTER.format(mostRecentObservationTimestamp);
     }
 
 }
