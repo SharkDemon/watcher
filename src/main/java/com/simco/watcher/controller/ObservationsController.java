@@ -92,6 +92,16 @@ public class ObservationsController extends BaseController {
                 .get(0); // let's assume a find
         newObservation.setHome(homeUnderObservation);
 
+        // TODO: take the vehiclesPresentIds, lookup the Vehicles, and set the
+        // Vehicles property (have to fix this block later)
+        //if (null == newObservation.getVehiclesPresentIds() || 0 == newObservation.getVehiclesPresentIds().length) {
+        //    newObservation.setVehicles(new ArrayList<Vehicle>(0));
+        //} else {
+        //    List<Vehicle> matches = vehicles.stream()
+        //    .filter(v -> v.getId().equals(obj))
+        //    .collect(Collectors.toList());
+        //}
+
         // assign ID to the new observation and add it to our collection
         newObservation.setId(UUID.randomUUID());
         observations.add(newObservation);
