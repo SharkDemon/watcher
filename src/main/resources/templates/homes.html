@@ -37,7 +37,10 @@
                                 </td>
                                 <td th:text="${h.doorbell.displayName}">Doorbell</td>
                                 <td th:text="${h.securityCamera.displayName}">Absent/Present</td>
-                                <td>TODO</td>
+                                <td>
+                                    <span th:text="${h.signage}">Signage</span><br/>
+                                    <small><span class="text-muted" th:text="${'as of ' + h.mostRecentObservationDateDisplayValue}">as of Date</span></small>
+                                </td>
                                 <td><a th:href="@{'/homes/edit/' + ${h.id}}" href="#">Edit</a> 
                                         | <a th:href="@{'/homes/history/' + ${h.id}}" href="#">History</a> 
                                         | <a th:href="@{'/homes/remove/' + ${h.id}}" href="#">Remove</a>

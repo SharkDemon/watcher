@@ -19,8 +19,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.simco.watcher.model.ContractorStatus;
 import com.simco.watcher.model.Doorbell;
 import com.simco.watcher.model.Home;
+import com.simco.watcher.model.HomeForSaleStatus;
 import com.simco.watcher.model.Observation;
 import com.simco.watcher.model.SecurityCamera;
 import com.simco.watcher.service.DummyDataService;
@@ -49,6 +51,7 @@ public class HomesController {
     @GetMapping("/homes")
     public String showHomes(
             @ModelAttribute("homes") List<Home> homes,
+            @ModelAttribute("observations") List<Observation> observations,
             Model model) {
 
         // just in case we visit this page first, ensure homes list
@@ -60,12 +63,30 @@ public class HomesController {
                 homes.size()
                 );
 
-        // find observations for the specified home (matching on UUID) and
-        // sort in descending
+        // set the signage property and mostRecentObservationTimestamp property
+        // on each Home
+        // ...YES, i know it's convoluted
+        homes.stream().forEach(h -> {
+            // get observations for this home, in desc order
+            Observation latestObservation = observations.stream()
+                    .filter(o -> o.getSelectedHomeId().equals(h.getId()))
+                    .sorted(Comparator.comparing(Observation::getTimestamp).reversed())
+                    .collect(Collectors.toList()).get(0);
+            String signage = "";
+            if (latestObservation.getForSaleStatus().equals(HomeForSaleStatus.FOR_SALE_SIGN))
+                signage = HomeForSaleStatus.FOR_SALE_SIGN.getDisplayName();
+            if (latestObservation.getContractorStatus().equals(ContractorStatus.CONTRACTOR_SIGN))
+                signage += ((0 == signage.length()) ? "" : ", ") + ContractorStatus.CONTRACTOR_SIGN.getDisplayName();
+            if (0 == signage.length())
+                signage = "None";
+            h.setSignage(signage);
+            h.setMostRecentObservationTimestamp(latestObservation.getTimestamp());
+        });
+
+        // sort Homes by asc number and then by asc street
         homes = homes.stream()
                 .sorted(Comparator.comparing(Home::getNumber).thenComparing(Home::getStreet))
                 .collect(Collectors.toList());
-
 
         // add session variables
         model.addAttribute("homes", homes);

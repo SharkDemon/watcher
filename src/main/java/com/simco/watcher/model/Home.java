@@ -1,5 +1,7 @@
 package com.simco.watcher.model;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 
 import lombok.AllArgsConstructor;
@@ -11,6 +13,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor @AllArgsConstructor
 @Builder
 public class Home {
+
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     private UUID id;
 
@@ -25,12 +29,20 @@ public class Home {
     private Doorbell doorbell;
     private SecurityCamera securityCamera;
 
+    // for display in the "list Homes" view only
+    private String signage;
+    private LocalDateTime mostRecentObservationTimestamp;
+
     public String getNumberStreet() {
         return String.format("%s %s", number, street);
     }
 
     public String getCityStateZip() {
         return String.format("%s, %s %s", city, state.getAbbreviation(), zip);
+    }
+
+    public String getMostRecentObservationDateDisplayValue() {
+        return null == mostRecentObservationTimestamp ? "" : DATE_FORMATTER.format(mostRecentObservationTimestamp);
     }
 
 }
