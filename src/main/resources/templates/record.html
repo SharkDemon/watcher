@@ -89,15 +89,11 @@
                     </fieldset>
 
                     <div class="form-group row">
-                        <div class="col-sm-2">
-                            <label for="selectedVehicleId" class="col-form-label">Vehicles Present</label>
-                            <small class="col-sm-3 form-text text-muted">Select by license plate number.</small>
-                        </div>
+                        <label for="selectedVehicleId" class="col-sm-2 col-form-label">Vehicles Present</label>
                         <select multiple class="col-sm-6 form-control" th:field="*{vehiclesPresentIds}" size="10">
                             <option value="">(select)</option>
                             <option th:each="v : ${vehicles}" th:value="${v.id}" th:text="${v.plateNumber + ' - ' + v.plateState.abbreviation}"/>
                         </select>
-                        <div class="col-sm-4"></div>
                     </div>
 
                     <button type="submit" class="btn btn-primary">Submit</button>
