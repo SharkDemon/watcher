@@ -1,6 +1,7 @@
 package com.simco.watcher.controller;
 
 import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -38,6 +39,11 @@ public class ObservationsController extends BaseController {
 
         logger.info("showNewObservation invoked");
 
+        // ensure Vehicles list is sorted
+        vehicles = vehicles.stream()
+                .sorted(Comparator.comparing(Vehicle::getPlateNumber).thenComparing(Vehicle::getPlateState))
+                .collect(Collectors.toList());
+
         // create empty Observation object for data-entry, but let's setup
         // default values for the form
         Observation observation = Observation.builder()
@@ -69,13 +75,14 @@ public class ObservationsController extends BaseController {
         // set observation timestamp
         newObservation.setTimestamp(LocalDateTime.now());
 
-        logger.info("recordObservation invoked - selectedHomeId=[{}], garageStatus=[{}], extLightsStatus=[{}], intLightsStatus=[{}], forSaleStatus=[{}], contractorStatus=[{}]",
+        logger.info("recordObservation invoked - selectedHomeId=[{}], garageStatus=[{}], extLightsStatus=[{}], intLightsStatus=[{}], forSaleStatus=[{}], contractorStatus=[{}], vehiclesPresentIds=[{}]",
                 newObservation.getSelectedHomeId(),
                 newObservation.getGarageStatus().getDisplayName(),
                 newObservation.getExtLightsStatus().getDisplayName(),
                 newObservation.getIntLightsStatus().getDisplayName(),
                 newObservation.getForSaleStatus().getDisplayName(),
-                newObservation.getContractorStatus().getDisplayName()
+                newObservation.getContractorStatus().getDisplayName(),
+                String.valueOf(newObservation.getVehiclesPresentIds())
                 );
 
         // take the selectedId, lookup the Home, and set the Home property

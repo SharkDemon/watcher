@@ -88,14 +88,17 @@
                        </div>
                     </fieldset>
 
-                    <fieldset class="form-group">
-                        <div class="row">
-                            <legend class="col-form-label col-sm-2 pt-0">Vehicles Present</legend>
-                            <div class="col-sm-10">
-                                <div><strong>TODO</strong></div>
-                            </div>
-                       </div>
-                    </fieldset>
+                    <div class="form-group row">
+                        <div class="col-sm-2">
+                            <label for="selectedVehicleId" class="col-form-label">Vehicles Present</label>
+                            <small class="col-sm-3 form-text text-muted">Select by license plate number.</small>
+                        </div>
+                        <select multiple class="col-sm-6 form-control" th:field="*{vehiclesPresentIds}" size="10">
+                            <option value="">(select)</option>
+                            <option th:each="v : ${vehicles}" th:value="${v.id}" th:text="${v.plateNumber + ' - ' + v.plateState.abbreviation}"/>
+                        </select>
+                        <div class="col-sm-4"></div>
+                    </div>
 
                     <button type="submit" class="btn btn-primary">Submit</button>
                     <a th:href="@{/}" href="#" id="cancel" name="cancel" class="btn btn-default">Cancel</a>
