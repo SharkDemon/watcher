@@ -14,6 +14,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -78,6 +79,30 @@ public class HomesController {
         model.addAttribute("homes", homes);
         model.addAttribute("homeToEdit", homeToEdit);
         return "editHome";
+    }
+
+    @PostMapping("/homes/edit/{homeId}")
+    public ModelAndView editHome(
+            @ModelAttribute("homes") List<Home> homes,
+            @ModelAttribute Home editedHome,
+            @PathVariable UUID homeId,
+            ModelMap model) {
+
+        logger.info("editHome invoked - id=[{}]",
+                homeId);
+
+        // find the existing Home so that we can update its properties
+        int indexOfInterest = 0;
+        for (Home h : homes) {
+            if (h.getId().equals(homeId))
+                break;
+            indexOfInterest++;
+        }
+        homes.get(indexOfInterest).setDoorbell(editedHome.getDoorbell());
+        homes.get(indexOfInterest).setSecurityCamera(editedHome.getSecurityCamera());
+
+        model.addAttribute("homes", homes);
+        return new ModelAndView("redirect:/homes", model);
     }
 
     @GetMapping("/homes/remove/{homeId}")

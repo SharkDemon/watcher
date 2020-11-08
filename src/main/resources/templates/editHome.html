@@ -19,7 +19,7 @@
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title">Edit Home Details</h5>
-                <form action="#" th:action="@{/editHome}" th:object="${homeToEdit}" method="post">
+                <form action="#" th:action="@{'/homes/edit/' + ${homeToEdit.id}}" th:object="${homeToEdit}" method="post">
 
                     <fieldset class="form-group">
                         <div class="row">
