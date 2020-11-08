@@ -15,7 +15,7 @@ public class Vehicle {
     private UUID id;
 
     private VehicleColor color;
-    private String make;
+    private VehicleMake make;
     private String model;
     private State plateState;
     private String plateNumber;

@@ -26,7 +26,7 @@
                                 <th scope="col">License Plate Number</th>
                                 <th scope="col">License Plate State</th>
                                 <th scope="col">Color</th>
-                                <th scope="col">Make/Model</th>
+                                <th scope="col">Make and Model</th>
                                 <th scope="col">Actions</th>
                             </tr>
                         </thead>
@@ -35,8 +35,8 @@
                                 <td th:text="${v.plateNumber}">License Plate Number</td>
                                 <td th:text="${v.plateState}">State</td>
                                 <td th:text="${v.color.displayName}">Color</td>
-                                <td th:text="${v.make + ' ' + v.model}">Make and Model</td>
-                                <td><a href="#">Edit</a> 
+                                <td th:text="${v.make.displayName + ' ' + v.model}">Make and Model</td>
+                                <td><a th:href="@{'/vehicles/edit/' + ${v.id}}" href="#">Edit</a> 
                                         | <a th:href="@{'/vehicles/remove/' + ${v.id}}" href="#">Remove</a>
                                 </td>
                             </tr>
@@ -44,7 +44,7 @@
                     </table>
                 </div>
 
-                <a th:href="@{/vehicles/add}" href="#" class="btn btn-primary">Add Vehicle</a>                
+                <a th:href="@{/vehicles/add}" href="#" class="btn btn-primary">Add Vehicle</a>
             </div>
         </div>
 

@@ -53,12 +53,61 @@ public class VehiclesController {
                 );
 
         vehicles = vehicles.stream()
-                .sorted(Comparator.comparing(Vehicle::getPlateNumber))
+                .sorted(Comparator.comparing(Vehicle::getPlateNumber).thenComparing(Vehicle::getPlateState))
                 .collect(Collectors.toList());
 
         // add session variables
         model.addAttribute("vehicles", vehicles);
         return "vehicles";
+    }
+
+    @GetMapping("/vehicles/edit/{vehicleId}")
+    public String showEditVehicle(
+            @ModelAttribute("vehicles") List<Vehicle> vehicles,
+            @PathVariable UUID vehicleId,
+            ModelMap model) {
+
+        logger.info("showEditVehicle invoked - vehicleId=[{}]", vehicleId);
+
+        // get the vehicle matching on UUID
+        Vehicle vehicleToEdit = vehicles.stream()
+                .filter(cc -> cc.getId().equals(vehicleId))
+                .collect(Collectors.toList())
+                .get(0); // let's assume a find
+
+        // add session variables
+        model.addAttribute("vehicles", vehicles);
+        // add data necessary to render view
+        model.addAttribute("vehicleToEdit", vehicleToEdit);
+        return "editVehicle";
+    }
+
+    @PostMapping("/vehicles/edit/{vehicleId}")
+    public ModelAndView editVehicle(
+            @ModelAttribute("vehicles") List<Vehicle> vehicles,
+            @ModelAttribute Vehicle editedVehicle,
+            @PathVariable UUID vehicleId,
+            ModelMap model) {
+
+        logger.info("editVehicle invoked - id=[{}]",
+                vehicleId);
+
+        // find the existing Home so that we can update its properties
+        int indexOfInterest = 0;
+        for (Vehicle v : vehicles) {
+            if (v.getId().equals(vehicleId))
+                break;
+            indexOfInterest++;
+        }
+        vehicles.get(indexOfInterest).setColor(editedVehicle.getColor());
+        vehicles.get(indexOfInterest).setMake(editedVehicle.getMake());
+        vehicles.get(indexOfInterest).setModel(editedVehicle.getModel());
+        vehicles.get(indexOfInterest).setPlateNumber(editedVehicle.getPlateNumber());
+        vehicles.get(indexOfInterest).setPlateState(editedVehicle.getPlateState());
+
+        // add session variables
+        model.addAttribute("vehicles", vehicles);
+        return new ModelAndView("redirect:/vehicles", model);
     }
 
     @GetMapping("/vehicles/remove/{vehicleId}")

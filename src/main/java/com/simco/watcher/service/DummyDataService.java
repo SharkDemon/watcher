@@ -20,6 +20,7 @@ import com.simco.watcher.model.SecurityCamera;
 import com.simco.watcher.model.State;
 import com.simco.watcher.model.Vehicle;
 import com.simco.watcher.model.VehicleColor;
+import com.simco.watcher.model.VehicleMake;
 
 @Service
 public class DummyDataService {
@@ -51,31 +52,31 @@ public class DummyDataService {
     };
 
     private Vehicle[] vehicles = {
-            Vehicle.builder().id(UUID.randomUUID()).color(VehicleColor.BLUE).make("Chevrolet").model("Cavalier")
+            Vehicle.builder().id(UUID.randomUUID()).color(VehicleColor.BLUE).make(VehicleMake.CHEVROLET).model("Cavalier")
             .plateState(State.TX).plateNumber("ABC 123")
             .build(),
 
-            Vehicle.builder().id(UUID.randomUUID()).color(VehicleColor.BLACK).make("Chevrolet").model("Malibu")
+            Vehicle.builder().id(UUID.randomUUID()).color(VehicleColor.BLACK).make(VehicleMake.CHEVROLET).model("Malibu")
             .plateState(State.TX).plateNumber("DDD 444")
             .build(),
 
-            Vehicle.builder().id(UUID.randomUUID()).color(VehicleColor.SILVER).make("Mazda").model("3")
+            Vehicle.builder().id(UUID.randomUUID()).color(VehicleColor.SILVER).make(VehicleMake.MAZDA).model("3")
             .plateState(State.TX).plateNumber("EFG 991")
             .build(),
 
-            Vehicle.builder().id(UUID.randomUUID()).color(VehicleColor.SILVER).make("Mazda").model("CX-5")
+            Vehicle.builder().id(UUID.randomUUID()).color(VehicleColor.SILVER).make(VehicleMake.MAZDA).model("CX-5")
             .plateState(State.CA).plateNumber("CLIP 99")
             .build(),
 
-            Vehicle.builder().id(UUID.randomUUID()).color(VehicleColor.WHITE).make("Ford").model("Fusion")
+            Vehicle.builder().id(UUID.randomUUID()).color(VehicleColor.WHITE).make(VehicleMake.FORD).model("Fusion")
             .plateState(State.IN).plateNumber("HOOSIERS")
             .build(),
 
-            Vehicle.builder().id(UUID.randomUUID()).color(VehicleColor.RED).make("Ford").model("Escort")
+            Vehicle.builder().id(UUID.randomUUID()).color(VehicleColor.RED).make(VehicleMake.FORD).model("Escort")
             .plateState(State.TX).plateNumber("JIFO 441")
             .build(),
 
-            Vehicle.builder().id(UUID.randomUUID()).color(VehicleColor.BLACK).make("Ford").model("Escape")
+            Vehicle.builder().id(UUID.randomUUID()).color(VehicleColor.BLACK).make(VehicleMake.FORD).model("Escape")
             .plateState(State.TX).plateNumber("LKM 8644")
             .build(),
     };
@@ -104,6 +105,78 @@ public class DummyDataService {
             .build(),
 
             // for homes[1]
+            Observation.builder().id(UUID.randomUUID()).selectedHomeId(homes[1].getId()).home(homes[1])
+            .timestamp(LocalDateTime.of(2020, Month.OCTOBER, 28, 8, 30, 0, 0))
+            .garageStatus(GarageStatus.CLOSED).extLightsStatus(HomeLightsStatus.OFF).intLightsStatus(HomeLightsStatus.OFF).forSaleStatus(HomeForSaleStatus.NO_SIGN).contractorStatus(ContractorStatus.NO_SIGN)
+            .build(),
+            Observation.builder().id(UUID.randomUUID()).selectedHomeId(homes[1].getId()).home(homes[1])
+            .timestamp(LocalDateTime.of(2020, Month.OCTOBER, 29, 10, 30, 0, 0))
+            .garageStatus(GarageStatus.CLOSED).extLightsStatus(HomeLightsStatus.OFF).intLightsStatus(HomeLightsStatus.OFF).forSaleStatus(HomeForSaleStatus.NO_SIGN).contractorStatus(ContractorStatus.NO_SIGN)
+            .build(),
+            Observation.builder().id(UUID.randomUUID()).selectedHomeId(homes[1].getId()).home(homes[1])
+            .timestamp(LocalDateTime.of(2020, Month.OCTOBER, 30, 11, 45, 0, 0))
+            .garageStatus(GarageStatus.CLOSED).extLightsStatus(HomeLightsStatus.OFF).intLightsStatus(HomeLightsStatus.OFF).forSaleStatus(HomeForSaleStatus.NO_SIGN).contractorStatus(ContractorStatus.NO_SIGN)
+            .build(),
+            Observation.builder().id(UUID.randomUUID()).selectedHomeId(homes[1].getId()).home(homes[1])
+            .timestamp(LocalDateTime.of(2020, Month.NOVEMBER, 5, 14, 11, 0, 0))
+            .garageStatus(GarageStatus.CLOSED).extLightsStatus(HomeLightsStatus.OFF).intLightsStatus(HomeLightsStatus.OFF).forSaleStatus(HomeForSaleStatus.NO_SIGN).contractorStatus(ContractorStatus.NO_SIGN)
+            .build(),
+
+            // for homes[2]
+            Observation.builder().id(UUID.randomUUID()).selectedHomeId(homes[2].getId()).home(homes[2])
+            .timestamp(LocalDateTime.of(2020, Month.OCTOBER, 28, 18, 45, 0, 0))
+            .garageStatus(GarageStatus.CLOSED).extLightsStatus(HomeLightsStatus.ON).intLightsStatus(HomeLightsStatus.OFF).forSaleStatus(HomeForSaleStatus.NO_SIGN).contractorStatus(ContractorStatus.CONTRACTOR_SIGN)
+            .build(),
+            Observation.builder().id(UUID.randomUUID()).selectedHomeId(homes[1].getId()).home(homes[1])
+            .timestamp(LocalDateTime.of(2020, Month.OCTOBER, 30, 22, 30, 0, 0))
+            .garageStatus(GarageStatus.CLOSED).extLightsStatus(HomeLightsStatus.ON).intLightsStatus(HomeLightsStatus.ON).forSaleStatus(HomeForSaleStatus.NO_SIGN).contractorStatus(ContractorStatus.NO_SIGN)
+            .build(),
+
+            // for homes[3]
+            Observation.builder().id(UUID.randomUUID()).selectedHomeId(homes[3].getId()).home(homes[3])
+            .timestamp(LocalDateTime.of(2020, Month.OCTOBER, 28, 8, 30, 0, 0))
+            .garageStatus(GarageStatus.CLOSED).extLightsStatus(HomeLightsStatus.OFF).intLightsStatus(HomeLightsStatus.OFF).forSaleStatus(HomeForSaleStatus.NO_SIGN).contractorStatus(ContractorStatus.NO_SIGN)
+            .build(),
+            Observation.builder().id(UUID.randomUUID()).selectedHomeId(homes[3].getId()).home(homes[3])
+            .timestamp(LocalDateTime.of(2020, Month.OCTOBER, 29, 10, 30, 0, 0))
+            .garageStatus(GarageStatus.CLOSED).extLightsStatus(HomeLightsStatus.OFF).intLightsStatus(HomeLightsStatus.OFF).forSaleStatus(HomeForSaleStatus.NO_SIGN).contractorStatus(ContractorStatus.NO_SIGN)
+            .build(),
+            Observation.builder().id(UUID.randomUUID()).selectedHomeId(homes[3].getId()).home(homes[3])
+            .timestamp(LocalDateTime.of(2020, Month.OCTOBER, 30, 11, 45, 0, 0))
+            .garageStatus(GarageStatus.CLOSED).extLightsStatus(HomeLightsStatus.OFF).intLightsStatus(HomeLightsStatus.OFF).forSaleStatus(HomeForSaleStatus.NO_SIGN).contractorStatus(ContractorStatus.NO_SIGN)
+            .build(),
+            Observation.builder().id(UUID.randomUUID()).selectedHomeId(homes[3].getId()).home(homes[3])
+            .timestamp(LocalDateTime.of(2020, Month.NOVEMBER, 5, 14, 11, 0, 0))
+            .garageStatus(GarageStatus.CLOSED).extLightsStatus(HomeLightsStatus.OFF).intLightsStatus(HomeLightsStatus.OFF).forSaleStatus(HomeForSaleStatus.NO_SIGN).contractorStatus(ContractorStatus.NO_SIGN)
+            .build(),
+
+            // for homes[4]
+            Observation.builder().id(UUID.randomUUID()).selectedHomeId(homes[4].getId()).home(homes[4])
+            .timestamp(LocalDateTime.of(2020, Month.OCTOBER, 25, 22, 30, 0, 0))
+            .garageStatus(GarageStatus.CLOSED).extLightsStatus(HomeLightsStatus.OFF).intLightsStatus(HomeLightsStatus.OFF).forSaleStatus(HomeForSaleStatus.NO_SIGN).contractorStatus(ContractorStatus.NO_SIGN)
+            .build(),
+            Observation.builder().id(UUID.randomUUID()).selectedHomeId(homes[4].getId()).home(homes[4])
+            .timestamp(LocalDateTime.of(2020, Month.OCTOBER, 26, 11, 12, 0, 0))
+            .garageStatus(GarageStatus.AJAR).extLightsStatus(HomeLightsStatus.OFF).intLightsStatus(HomeLightsStatus.OFF).forSaleStatus(HomeForSaleStatus.NO_SIGN).contractorStatus(ContractorStatus.NO_SIGN)
+            .build(),
+            Observation.builder().id(UUID.randomUUID()).selectedHomeId(homes[4].getId()).home(homes[4])
+            .timestamp(LocalDateTime.of(2020, Month.OCTOBER, 27, 14, 45, 0, 0))
+            .garageStatus(GarageStatus.AJAR).extLightsStatus(HomeLightsStatus.OFF).intLightsStatus(HomeLightsStatus.OFF).forSaleStatus(HomeForSaleStatus.NO_SIGN).contractorStatus(ContractorStatus.NO_SIGN)
+            .build(),
+            Observation.builder().id(UUID.randomUUID()).selectedHomeId(homes[4].getId()).home(homes[4])
+            .timestamp(LocalDateTime.of(2020, Month.NOVEMBER, 3, 15, 15, 0, 0))
+            .garageStatus(GarageStatus.CLOSED).extLightsStatus(HomeLightsStatus.OFF).intLightsStatus(HomeLightsStatus.OFF).forSaleStatus(HomeForSaleStatus.NO_SIGN).contractorStatus(ContractorStatus.NO_SIGN)
+            .build(),
+
+            // for homes[5]
+            Observation.builder().id(UUID.randomUUID()).selectedHomeId(homes[5].getId()).home(homes[5])
+            .timestamp(LocalDateTime.of(2020, Month.OCTOBER, 14, 16, 45, 0, 0))
+            .garageStatus(GarageStatus.CLOSED).extLightsStatus(HomeLightsStatus.OFF).intLightsStatus(HomeLightsStatus.OFF).forSaleStatus(HomeForSaleStatus.NO_SIGN).contractorStatus(ContractorStatus.NO_SIGN)
+            .build(),
+            Observation.builder().id(UUID.randomUUID()).selectedHomeId(homes[5].getId()).home(homes[5])
+            .timestamp(LocalDateTime.of(2020, Month.OCTOBER, 16, 13, 55, 0, 0))
+            .garageStatus(GarageStatus.AJAR).extLightsStatus(HomeLightsStatus.OFF).intLightsStatus(HomeLightsStatus.OFF).forSaleStatus(HomeForSaleStatus.NO_SIGN).contractorStatus(ContractorStatus.NO_SIGN)
+            .build(),
 
     };
 

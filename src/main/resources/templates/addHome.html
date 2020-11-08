@@ -1,32 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
-<div th:replace="fragments/head :: head(title='Neighborhood Watcher - Edit Home')"></div>
+<div th:replace="fragments/head :: head(title='Neighborhood Watcher - Add Home')"></div>
 <body>
     <main role="main" class="container">
         <div class="jumbotron text-white bg-dark">
-            <h1>Neighborhood Watcher - Edit Home</h1>
-            <p class="lead">Modify the home in the form below.</p>
+            <h1>Neighborhood Watcher - Add Home</h1>
+            <p class="lead">Enter new Home information in the form below.</p>
         </div>
 
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
                 <li class="breadcrumb-item"><a th:href="@{/homes}">Browse Homes</a></li>
-                <li class="breadcrumb-item active" aria-current="page" th:text="${'Edit Home - ' + homeToEdit.numberStreet}">Edit Home - Number/Street</li>
+                <li class="breadcrumb-item active" aria-current="page">Add Home</li>
             </ol>
         </nav>
 
         <div class="card">
             <div class="card-body">
-                <h5 class="card-title">Edit Home Details</h5>
-                <form action="#" th:action="@{'/homes/edit/' + ${homeToEdit.id}}" th:object="${homeToEdit}" method="post">
+                <h5 class="card-title">New Home Details</h5>
+                <form action="#" th:action="@{/homes/add/}" th:object="${newHome}" method="post">
 
-                    <fieldset class="form-group">
-                        <div class="row">
-                            <legend class="col-form-label col-sm-2 pt-0">Home Address</legend>
-                            <div class="col-sm-10" th:text="${homeToEdit.numberStreet + ', ' + homeToEdit.cityStateZip}"></div>
-                       </div>
-                    </fieldset>
+                    <div class="form-row">
+                        <div class="col-md-3 mb-3">
+                            <label for="homeNumber">Street Number</label>
+                            <input type="text" class="form-control" id="homeNumber" th:field="*{number}" required>
+                        </div>
+                        <div class="col-md-9 mb-3">
+                            <label for="homeStreet">Street</label>
+                            <input type="text" class="form-control" id="homeStreet" th:field="*{street}" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-md-4 mb-3">
+                            <label for="homeCity">City</label>
+                            <input type="text" class="form-control" id="homeCity" th:field="*{city}" required>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label for="homeState">State</label>
+                            <select class="form-control" id="homeState" th:field="*{state}" required>
+                                <option value="">(select)</option>
+                                <option th:each="e : ${T(com.simco.watcher.model.State).values()}" th:value="${e}" th:text="${e.abbreviation + ' - ' + e.displayName}"></option>
+                            </select>
+                        </div>
+                        <div class="col-md-2 mb-3">
+                            <label for="homeZip">Zip</label>
+                            <input type="text" class="form-control" id="homeZip" th:field="*{zip}" required>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                        </div>
+                    </div>
 
                     <fieldset class="form-group">
                         <div class="row">
