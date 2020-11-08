@@ -12,7 +12,7 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
                 <li class="breadcrumb-item"><a th:href="@{/homes}">Browse Homes</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Edit Home</li>
+                <li class="breadcrumb-item active" aria-current="page" th:text="${'Edit Home - ' + homeToEdit.numberStreet}">Edit Home - Number/Street</li>
             </ol>
         </nav>
 
