@@ -34,7 +34,7 @@
                                 <td th:text="${v.color}">Color</td>
                                 <td th:text="${v.make + ' ' + v.model}">Make and Model</td>
                                 <td><a href="#">Edit</a> 
-                                        | <a href="#">Remove</a>
+                                        | <a th:href="@{'/vehicles/remove/' + ${v.id}}" href="#">Remove</a>
                                 </td>
                             </tr>
                         </tbody>

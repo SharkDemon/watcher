@@ -2,16 +2,19 @@ package com.simco.watcher.controller;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.simco.watcher.model.Home;
 import com.simco.watcher.service.DummyDataService;
@@ -49,6 +52,25 @@ public class HomesController {
         model.addAttribute("homes", homes);
         return "homes";
     }
+
+    @GetMapping("/homes/remove/{homeId}")
+    public ModelAndView removeHome(
+            @ModelAttribute("homes") List<Home> homes,
+            @PathVariable UUID homeId,
+            ModelMap model) {
+
+        logger.info("removeHome invoked - homeId=[{}]", homeId);
+
+        // remove homes (should be just one) matching on UUID
+        homes = homes.stream()
+                .filter(h -> !h.getId().equals(homeId))
+                .collect(Collectors.toList());
+
+        // add session variables
+        model.addAttribute("homes", homes);
+        return new ModelAndView("redirect:/homes", model);
+    }
+
 
     @GetMapping("/homes/history/{homeId}")
     public String showHomeHistory(

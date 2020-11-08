@@ -42,11 +42,32 @@ public class DummyDataService {
 
     private Vehicle[] vehicles = {
             Vehicle.builder().id(UUID.randomUUID()).color(VehicleColor.BLUE).make("Chevrolet").model("Cavalier")
-            .plateState("TX").plateNumber("ABC 123").build(),
+            .plateState("TX").plateNumber("ABC 123")
+            .build(),
+
             Vehicle.builder().id(UUID.randomUUID()).color(VehicleColor.BLACK).make("Chevrolet").model("Malibu")
-            .plateState("TX").plateNumber("DDD 444").build(),
+            .plateState("TX").plateNumber("DDD 444")
+            .build(),
+
             Vehicle.builder().id(UUID.randomUUID()).color(VehicleColor.SILVER).make("Mazda").model("3")
-            .plateState("TX").plateNumber("EFG 991").build(),
+            .plateState("TX").plateNumber("EFG 991")
+            .build(),
+
+            Vehicle.builder().id(UUID.randomUUID()).color(VehicleColor.SILVER).make("Mazda").model("CX-5")
+            .plateState("CA").plateNumber("CLIP 99")
+            .build(),
+
+            Vehicle.builder().id(UUID.randomUUID()).color(VehicleColor.WHITE).make("Ford").model("Fusion")
+            .plateState("IN").plateNumber("HOOSIERS")
+            .build(),
+
+            Vehicle.builder().id(UUID.randomUUID()).color(VehicleColor.RED).make("Ford").model("Escort")
+            .plateState("TX").plateNumber("JIFO 441")
+            .build(),
+
+            Vehicle.builder().id(UUID.randomUUID()).color(VehicleColor.BLACK).make("Ford").model("Escape")
+            .plateState("TX").plateNumber("LKM 8644")
+            .build(),
     };
 
     public List<Home> getAllHomes() {
